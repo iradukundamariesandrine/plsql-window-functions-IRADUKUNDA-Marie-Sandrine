@@ -184,4 +184,5 @@ GeeksforGeeks SQL Window Functions
 DB-Diagram tool for ERD
 
 6.Academic Integrity Statement
+
 I declare that this project is my own work. All sources are cited, and the queries, interpretations, and analysis were developed by me without unauthorized assistance
