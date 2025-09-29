@@ -41,6 +41,8 @@ CREATE TABLE customers (
   region       VARCHAR2(50)
 );
 ```
+
+
 Products
 ```sql
 CREATE TABLE products (
@@ -59,6 +61,7 @@ CREATE TABLE deliveries (
 );
 ```
 Sample data
+
 customers
 ```sql
 INSERT INTO customers VALUES (1, 'Alice Uwase', 'Kigali');
@@ -66,6 +69,7 @@ INSERT INTO customers VALUES (2, 'John Niyonsenga', 'Musanze');
 INSERT INTO customers VALUES (3, 'Grace Mukamana', 'Huye');
 INSERT INTO customers VALUES (4, 'Eric Habimana', 'Rubavu');
 ```
+![customers](screenshots/Customers.png)
 products
 ```sql
 INSERT INTO products VALUES (101, 'Coffee Beans', 'Beverage');
@@ -73,6 +77,7 @@ INSERT INTO products VALUES (102, 'Tea Pack', 'Beverage');
 INSERT INTO products VALUES (103, 'Milk Carton', 'Dairy');
 INSERT INTO products VALUES (104, 'Chocolate Bar', 'Snack');
 ```
+![customers](screenshots/products.png)
 deliveries
 ```sql
 INSERT INTO deliveries VALUES (301, 1, 101, DATE '2025-09-02', 5.0, 12500.00);
@@ -83,6 +88,7 @@ INSERT INTO deliveries VALUES (303, 3, 104, DATE '2025-09-11', 2.0, 3000.00);
 
 INSERT INTO deliveries VALUES (304, 4, 102, DATE '2025-09-16', 8.0, 24800.00);
 ```
+![deliveries](screenshots/deliveries.png)
  4. Window Functions Implementation
 1) Ranking Functions
 ```sql
@@ -102,6 +108,7 @@ ORDER BY total_amount DESC;
 
 --DENSE_RANK doesn’t leave gaps.
 ```
+![Ranking Query](screenshots/rank.png)
 2) Aggregate Functions
 Running totals
 ```sql
@@ -130,6 +137,7 @@ ORDER BY delivery_date;
 --Running totals show cumulative revenue, while moving averages smooth out daily fluctuations.
 
 ```
+
 3) Navigation Functions
 ```sql
 SELECT delivery_date,
