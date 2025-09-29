@@ -91,11 +91,91 @@ SELECT customer_id,
 FROM deliveries
 GROUP BY customer_id
 ORDER BY total_amount DESC;
-...Interpretation:
+--Interpretation:
 
-ROW_NUMBER gives a strict order (no ties).
+--ROW_NUMBER gives a strict order (no ties).
 
-RANK leaves gaps if there are ties.
+--RANK leaves gaps if there are ties.
 
-DENSE_RANK doesn’t leave gaps.
+--DENSE_RANK doesn’t leave gaps.
 ```
+2) Aggregate Functions
+Running totals
+```sql
+--sum
+SELECT delivery_date,
+       SUM(amount) AS daily_amount,
+       SUM(SUM(amount)) OVER (
+           ORDER BY delivery_date
+           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+       ) AS running_total
+FROM deliveries
+GROUP BY delivery_date
+ORDER BY delivery_date;
+
+--average
+SELECT delivery_date,
+       SUM(liters) AS daily_liters,
+       AVG(SUM(liters)) OVER (
+           ORDER BY delivery_date
+           ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+       ) AS moving_avg_liters
+FROM deliveries
+GROUP BY delivery_date
+ORDER BY delivery_date;
+
+--Running totals show cumulative revenue, while moving averages smooth out daily fluctuations.
+
+```
+3) Navigation Functions
+```sql
+SELECT delivery_date,
+       SUM(liters) AS daily_liters,
+       LAG(SUM(liters)) OVER (ORDER BY delivery_date) AS prev_day_liters,
+       SUM(liters) - LAG(SUM(liters)) OVER (ORDER BY delivery_date) AS liters_diff
+FROM deliveries
+GROUP BY delivery_date
+ORDER BY delivery_date;
+
+--Shows how deliveries increased or decreased compared to the previous date.
+```
+4) Distribution Functions
+```sql
+SELECT customer_id,
+       SUM(amount) AS total_amount,
+       NTILE(4) OVER (ORDER BY SUM(amount) DESC) AS quartile,
+       CUME_DIST() OVER (ORDER BY SUM(amount) DESC) AS cum_dist
+FROM deliveries
+GROUP BY customer_id
+ORDER BY total_amount DESC;
+--Interpretation:
+--Divides customers into 4 groups (quartiles) and shows the cumulative distribution of revenue.
+```
+5. Results Analysis
+
+Descriptive (What happened?):
+Deliveries were made across regions, with Kigali leading in demand.
+
+Diagnostic (Why?):
+Customers in urban regions tend to purchase more liters. Product type and seasonality influence sales volume.
+
+Prescriptive (What next?):
+
+Reward top quartile customers with loyalty programs.
+
+Improve forecasting by monitoring moving averages.
+
+Target underperforming regions with promotional campaigns.
+
+References
+Oracle SQL Documentation – Window Functions
+
+AUCA Lecture Notes
+
+W3Schools SQL Tutorial
+
+Tutorialspoint SQL Analytical Functions
+
+GeeksforGeeks SQL Window Functions
+
+DB-Diagram tool for ERD
