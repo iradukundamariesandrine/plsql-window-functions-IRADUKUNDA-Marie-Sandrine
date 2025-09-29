@@ -8,7 +8,7 @@ Milk Delivery Company
 
 ---
 
-## 📌 1. Problem Definition
+##  1. Problem Definition
 **Business Context:**  
 A milk delivery company distributes fresh and processed milk to households, shops, and schools across multiple regions.  
 
@@ -20,7 +20,7 @@ Reports that highlight top 5 customers per region, monthly running totals, month
 
 ---
 
-## 🎯 2. Success Criteria
+##  2. Success Criteria
 The project will be successful if it achieves these **five measurable goals**:  
 1. Identify **Top 5 customers per region by liters delivered** using `RANK()` or `ROW_NUMBER()`.  
 2. Compute **running monthly totals** of liters sold using `SUM() OVER (ORDER BY ...)`.  
@@ -30,7 +30,7 @@ The project will be successful if it achieves these **five measurable goals**:
 
 ---
 
-## 🗄️ 3. Database Schema
+##  3. Database Schema
 
 ### Tables
 **Customers**
@@ -75,12 +75,15 @@ INSERT INTO products VALUES (104, 'Chocolate Bar', 'Snack');
 ```
 deliveries
 ```sql
-INSERT INTO deliveries VALUES (201, 1001, DATE '2025-09-02', 'Delivered');
-INSERT INTO deliveries VALUES (202, 1002, DATE '2025-09-06', 'Pending');
-INSERT INTO deliveries VALUES (203, 1003, DATE '2025-09-11', 'Delivered');
-INSERT INTO deliveries VALUES (204, 1004, DATE '2025-09-16', 'In Transit');
+INSERT INTO deliveries VALUES (301, 1, 101, DATE '2025-09-02', 5.0, 12500.00);
+
+INSERT INTO deliveries VALUES (302, 2, 103, DATE '2025-09-06', 10.0, 42000.00);
+
+INSERT INTO deliveries VALUES (303, 3, 104, DATE '2025-09-11', 2.0, 3000.00);
+
+INSERT INTO deliveries VALUES (304, 4, 102, DATE '2025-09-16', 8.0, 24800.00);
 ```
-💻 4. Window Functions Implementation
+ 4. Window Functions Implementation
 1) Ranking Functions
 ```sql
 SELECT customer_id,
