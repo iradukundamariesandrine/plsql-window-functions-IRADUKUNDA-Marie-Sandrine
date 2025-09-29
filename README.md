@@ -40,3 +40,21 @@ CREATE TABLE customers (
   name         VARCHAR2(100),
   region       VARCHAR2(50)
 );
+```
+Products
+```sql
+CREATE TABLE products (
+  product_id   NUMBER PRIMARY KEY,
+  name         VARCHAR2(100),
+  category     VARCHAR2(50)
+);
+```
+DELIVERIES
+```sql
+CREATE TABLE deliveries (
+  delivery_id    NUMBER PRIMARY KEY,
+  transaction_id NUMBER REFERENCES transactions(transaction_id),
+  delivery_date  DATE,
+  status         VARCHAR2(20)
+);
+```
